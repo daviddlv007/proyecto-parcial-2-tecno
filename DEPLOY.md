@@ -13,31 +13,33 @@
 - Directorio: /home/grupo17sa/proyecto2
 - Sistema: Fedora 41, 3.8GB RAM, 1.8TB disco
 
-**❌ NO DISPONIBLE:**
-- Node.js/npm (no aparece en diagnóstico)
+**✅ TAMBIÉN DISPONIBLE:**
+- Node.js v22.17.0
+- npm 10.9.2
 
-**⚠️ IMPLICACIÓN CRÍTICA:**
-Como no hay Node.js en servidor, **DEBES hacer el build LOCALMENTE** antes de desplegar.
+**🎉 IMPLICACIÓN:**
+El build se puede hacer DIRECTAMENTE EN EL SERVIDOR. Deploy completamente automatizado con un solo script.
 
 ---
 
 ## ESTRATEGIA ÓPTIMA DE DESPLIEGUE
 
-### FASE 1: PREPARACIÓN LOCAL (En tu máquina)
+### ⚡ OPCIÓN RECOMENDADA: Script único y totalmente automatizado
+
+**En el servidor Cockpit (Terminal), ejecuta una sola vez:**
 
 ```bash
-cd /home/ubuntu/proyectos/proyecto-parcial-2-tecno/escuela-conduccion
-
-# 1. Build de producción
-npm run build
-
-# 2. Commit del build
-git add public/build -f
-git commit -m "Add production build"
-git push origin main
+cd /home/grupo17sa/proyecto2
+git clone https://github.com/daviddlv007/proyecto-parcial-2-tecno.git escuela-conduccion
+cd escuela-conduccion
+bash deploy-all.sh
 ```
 
-### FASE 2: EN EL SERVIDOR (Cockpit Terminal)
+Eso es todo. El script hace todo automáticamente (sigue leyendo para ver qué hace exactamente).
+
+---
+
+### FASE 1: EN EL SERVIDOR (Cockpit Terminal) - Detalles de qué hace deploy-all.sh
 
 ```bash
 # 1. Clonar proyecto
@@ -75,32 +77,67 @@ PAGOFACIL_PAYMENT_AMOUNT=0.10
 ```
 
 ```bash
-# 4. Generar key
+# 1. Clonar proyecto
+cd /home/grupo17sa/proyecto2
+git clone https://github.com/daviddlv007/proyecto-parcial-2-tecno.git escuela-conduccion
+cd escuela-conduccion
+
+# 2. Instalar dependencias PHP
+composer install --optimize-autoloader --no-dev
+
+# 3. Instalar dependencias frontend
+npm install
+
+# 4. Build Vite (genera public/build/)
+npm run build
+
+# 5. Configurar .env
+cp .env.example .env
+nano .env
+```
+
+**Valores mínimos en .env:**
+```properties
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=http://grupo17sa.proyecto2.tecnoweb.org.bo
+
+DB_CONNECTION=pgsql
+DB_HOST=localhost
+DB_PORT=5432
+DB_DATABASE=db_grupo17sa
+DB_USERNAME=grupo17sa
+DB_PASSWORD=[TU_PASSWORD_BD]
+
+PAGOFACIL_TOKEN_SERVICE=e4c3f89a3c284cd3e0ce05ff4fe5282b4f21e9a6
+PAGOFACIL_TOKEN_SECRET=[TU_TOKEN_LARGO]
+```
+
+```bash
+# 6. Generar key
 php artisan key:generate
 
-# 5. Crear base de datos PostgreSQL
-psql -U grupo17sa -d postgres
-CREATE DATABASE db_grupo17sa;
-\q
+# 7. Crear BD
+psql -U grupo17sa -d postgres -c "CREATE DATABASE db_grupo17sa;"
 
-# 6. Ejecutar migraciones
+# 8. Ejecutar migraciones
 php artisan migrate --force
 
-# 7. Poblar datos
-php artisan db:seed --class=DatabaseSeeder
-php artisan db:seed --class=DemoDataSeeder
+# 9. Poblar datos (usuarios + datos demo)
+php artisan db:seed --class=DatabaseSeeder --force
+php artisan db:seed --class=DemoDataSeeder --force
 
-# 8. Permisos
+# 10. Permisos
 chmod -R 775 storage bootstrap/cache
-chown -R grupo17sa:grupo17sa storage bootstrap/cache
+chown -R grupo17sa:grupo17sa storage bootstrap/cache 2>/dev/null || true
 
-# 9. Optimizar
+# 11. Optimizar
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 ```
 
-### FASE 3: CONFIGURACIÓN APACHE
+### FASE 2: CONFIGURACIÓN APACHE
 
 Crear archivo: `/etc/httpd/conf.d/escuela-conduccion.conf`
 
