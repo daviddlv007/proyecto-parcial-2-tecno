@@ -36,104 +36,37 @@ Sistema web integral para administrar una escuela de conducción con gestión de
 
 ## About Laravel
 
-## Requisitos del Servidor
 
----
+# Escuela de Conducción — Resumen de despliegue
 
-- PHP 8.3+
+Breve guía para dejar el proyecto en producción en el servidor académico.
 
-- Composer 2.xLaravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Requisitos mínimos
+- PHP 8.3+, Composer 2.x, PostgreSQL, Apache/Nginx.
+- Node.js (solo necesario para build local).
 
-- PostgreSQL 13+
+Pasos mínimos (resumido)
+1. Clona el repositorio en el servidor.
+2. Copia `.env.example` a `.env` y ajusta credenciales (DB, APP_URL, PagoFácil).
+3. Ejecuta `composer install --optimize-autoloader --no-dev`.
+4. Genera `APP_KEY` con `php artisan key:generate`.
+5. Ejecuta migraciones y seeders:
+   - `php artisan migrate --force`
+   - `php artisan db:seed --class=DatabaseSeeder`
+   - `php artisan db:seed --class=DemoDataSeeder`
+6. Asegura permisos: `chmod -R 775 storage bootstrap/cache`.
+7. Copia el `public/build` generado desde tu máquina si no hay Node en el servidor.
+8. Configura Apache con `DocumentRoot` apuntando a `public/` y reinicia `httpd`.
 
-- Node.js 18+ (solo para build)## 📦 Componentes Implementados
+Archivos útiles
+- `DEPLOY.md`: pasos detallados y comandos.
+- `deploy-server.sh`: script para automatizar instalacion y seeders (requiere editar `.env`).
 
-- Apache/Nginx con mod_rewrite
+Soporte
+- Usuarios de prueba: `admin@escuela.com / password`.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-
-## Instalación
-
-### ✅ Base de Datos- [Powerful dependency injection container](https://laravel.com/docs/container).
-
-```bash
-
-# 1. Clonar repositorio- **18 tablas relacionales** con integridad referencial- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-
-git clone <tu-repo>
-
-cd escuela-conduccion- **2 migraciones**: Estructura base + Mejoras de negocio- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-
-
-
-# 2. Instalar dependencias PHP- **Seeders funcionales** con datos de prueba- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-
-composer install --optimize-autoloader --no-dev
-
-- [Robust background job processing](https://laravel.com/docs/queues).
-
-# 3. Configurar entorno
-
-cp .env.example .env### ✅ Modelos Eloquent (17)- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-php artisan key:generate
-
-Todos con:
-
-# 4. Configurar base de datos en .env
-
-DB_CONNECTION=pgsql- Relaciones completasLaravel is accessible, powerful, and provides tools required for large, robust applications.
-
-DB_HOST=localhost
-
-DB_PORT=5432- Scopes personalizados
-
-DB_DATABASE=escuela_conduccion
-
-DB_USERNAME=tu_usuario- Accessors computados## Learning Laravel
-
-DB_PASSWORD=tu_password
-
-- Métodos de validación de negocio
-
-# 5. Ejecutar migraciones y seeders
-
-php artisan migrate --force- Business logic methodsLaravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
-
-php artisan db:seed --class=DatabaseSeeder
-
-php artisan db:seed --class=DemoDataSeeder
-
-
-
-# 6. Instalar dependencias frontend y compilar### ✅ Controladores (12)If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-npm install
-
-npm run build
-
-
-
-# 7. Configurar permisos**Admin (6):**## Laravel Sponsors
-
-chmod -R 775 storage bootstrap/cache
-
-chown -R www-data:www-data storage bootstrap/cache- VehiculoController - CRUD + mantenimiento
-
-```
-
-- CursoController - CRUD + asignación actividadesWe would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-## Configuración Apache
-
-- SesionController - CRUD + validación horarios
-
-```apache
-
-<VirtualHost *:80>- InscripcionController - CRUD + aprobación + planes pago### Premium Partners
-
-    ServerName tu-dominio.com
-
+Contacto
+- Equipo de desarrollo (proyecto académico).
     DocumentRoot /ruta/al/proyecto/public- PagoController - CRUD + QR + confirmación
 
 
