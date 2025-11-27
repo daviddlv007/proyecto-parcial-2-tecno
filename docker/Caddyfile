@@ -1,0 +1,21 @@
+:80 {
+    root * /var/www/html/public
+    encode gzip
+    
+    php_fastcgi app:9000 {
+        env SERVER_SOFTWARE "Caddy"
+    }
+    
+    file_server
+    
+    @notStatic {
+        not path *.css *.js *.png *.jpg *.jpeg *.gif *.ico *.svg *.woff *.woff2
+    }
+    
+    try_files {path} /index.php?{query}
+    
+    log {
+        output stdout
+        format console
+    }
+}

@@ -1,0 +1,59 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: escuela_conduccion_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - escuela_network
+    environment:
+      - PHP_IDE_CONFIG=serverName=escuela-conduccion
+    depends_on:
+      - db
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: escuela_conduccion_caddy
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+      - "8443:443"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - escuela_network
+    depends_on:
+      - app
+
+  db:
+    image: postgres:15-alpine
+    container_name: escuela_conduccion_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: escuela_conduccion
+      POSTGRES_USER: escuela_user
+      POSTGRES_PASSWORD: escuela_secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - escuela_network
+
+networks:
+  escuela_network:
+    driver: bridge
+
+volumes:
+  db_data:
+  caddy_data:
+  caddy_config:

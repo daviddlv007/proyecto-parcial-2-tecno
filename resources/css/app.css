@@ -1,0 +1,571 @@
+/* ============================================
+   DESIGN SYSTEM - Sistema de Diseño Global
+   Inspirado en: YouTube, Facebook, Notion
+   ============================================ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   VARIABLES CSS GLOBALES - FUERA DE @layer
+   Estas reglas NO deben ser optimizadas por Tailwind
+   ============================================ */
+
+/* Variables CSS - Sistema de Color Moderno */
+:root {
+    /* Accesibilidad */
+    --base-font-size: 16px; /* afectará rem en todo el sitio */
+    --contrast-level: 1; /* 1 = normal, >1 = alto contraste */
+
+    /* Theme base placeholders (se sobreescriben por .theme-* en <html>) */
+    --theme-accent-1: 59 130 246;
+    --theme-accent-2: 99 102 241;
+    /* Brand Colors */
+    --brand-primary: 59 130 246;      /* blue-500 */
+    --brand-secondary: 99 102 241;    /* indigo-500 */
+    
+    /* Backgrounds */
+    --bg-primary: 255 255 255;        /* white */
+    --bg-secondary: 249 250 251;      /* gray-50 */
+    --bg-tertiary: 243 244 246;       /* gray-100 */
+    --bg-hover: 243 244 246;          /* gray-100 */
+    
+    /* Text Colors */
+    --text-primary: 17 24 39;         /* gray-900 */
+    --text-secondary: 75 85 99;       /* gray-600 */
+    --text-tertiary: 156 163 175;     /* gray-400 */
+    
+    /* Borders */
+    --border-primary: 229 231 235;    /* gray-200 */
+    --border-secondary: 243 244 246;  /* gray-100 */
+    
+    /* Surfaces (Cards, Modals, etc) */
+    --surface: 255 255 255;           /* white */
+    --surface-elevated: 255 255 255;  /* white */
+    
+    /* Interactive States */
+    --interactive-hover: 243 244 246; /* gray-100 */
+    --interactive-active: 229 231 235; /* gray-200 */
+    
+    /* Status Colors */
+    --success: 34 197 94;             /* green-500 */
+    --warning: 234 179 8;             /* yellow-500 */
+    --error: 239 68 68;               /* red-500 */
+    --info: 59 130 246;               /* blue-500 */
+}
+
+/* Dark Theme */
+html.dark {
+    --brand-primary: 96 165 250;      /* blue-400 - más brillante */
+    --brand-secondary: 129 140 248;   /* indigo-400 */
+    
+    --bg-primary: 17 24 39;           /* gray-900 */
+    --bg-secondary: 31 41 55;         /* gray-800 */
+    --bg-tertiary: 55 65 81;          /* gray-700 */
+    --bg-hover: 55 65 81;             /* gray-700 */
+    
+    --text-primary: 243 244 246;      /* gray-100 */
+    --text-secondary: 209 213 219;    /* gray-300 */
+    --text-tertiary: 156 163 175;     /* gray-400 */
+    
+    --border-primary: 55 65 81;       /* gray-700 */
+    --border-secondary: 75 85 99;     /* gray-600 */
+    
+    --surface: 31 41 55;              /* gray-800 */
+    --surface-elevated: 55 65 81;     /* gray-700 */
+    
+    --interactive-hover: 55 65 81;    /* gray-700 */
+    --interactive-active: 75 85 99;   /* gray-600 */
+    
+    --success: 74 222 128;            /* green-400 */
+    --warning: 250 204 21;            /* yellow-400 */
+    --error: 248 113 113;             /* red-400 */
+    --info: 96 165 250;               /* blue-400 */
+}
+
+/* ============================================
+   TEMAS BASE: Niños, Jóvenes, Adultos
+   Primero definimos modo CLARO, luego OSCURO sobrescribe
+   ============================================ */
+
+/* TEMAS EN MODO CLARO (default, se aplican siempre) */
+html.theme-kids {
+        /* Colores más vivos - PALETTE CÁLIDA Y ALEGRE */
+        --brand-primary: 236 72 153;   /* fuchsia-500 */
+        --brand-secondary: 245 158 11; /* amber-500 */
+        --text-primary: 17 24 39;
+        --bg-primary: 254 252 232;     /* yellow-50 - fondo cálido amarillo */
+        --bg-secondary: 254 243 199;   /* amber-100 - más intenso */
+        --bg-tertiary: 253 230 138;    /* amber-200 */
+        --surface: 255 251 235;        /* amber-50 */
+        --border-primary: 251 191 36;  /* amber-400 - bordes visibles */
+        --border-secondary: 245 158 11; /* amber-500 */
+        --interactive-hover: 254 243 199; /* amber-100 */
+    }
+
+    html.theme-youth {
+        /* Colores modernos/dinámicos - PALETTE FRESCA Y VIBRANTE */
+        --brand-primary: 14 165 233;   /* cyan-500 */
+        --brand-secondary: 139 92 246; /* purple-600 */
+        --text-primary: 20 20 20;
+        --bg-primary: 240 249 255;     /* sky-50 - fondo azul claro */
+        --bg-secondary: 224 242 254;   /* sky-100 - más intenso */
+        --bg-tertiary: 186 230 253;    /* sky-200 */
+        --surface: 245 247 255;        /* lavanda muy claro */
+        --border-primary: 56 189 248;  /* cyan-400 - bordes visibles */
+        --border-secondary: 14 165 233; /* cyan-500 */
+        --interactive-hover: 224 242 254; /* sky-100 */
+    }
+
+    html.theme-adult {
+        /* Colores sobrios - PALETTE NEUTRAL Y PROFESIONAL */
+        --brand-primary: 55 65 81;     /* gray-700 */
+        --brand-secondary: 17 24 39;   /* gray-900 */
+        --text-primary: 15 23 42;
+        --bg-primary: 249 250 251;     /* gray-50 */
+        --bg-secondary: 243 244 246;   /* gray-100 */
+        --bg-tertiary: 229 231 235;    /* gray-200 */
+        --surface: 255 255 255;        /* blanco puro */
+        --border-primary: 209 213 219; /* gray-300 */
+        --border-secondary: 156 163 175; /* gray-400 */
+        --interactive-hover: 243 244 246; /* gray-100 */
+    }
+
+    /* MODO OSCURO SOBRESCRIBE LOS TEMAS */
+    html.theme-kids.dark {
+        --brand-primary: 244 114 182;   /* fuchsia-400 - más brillante para dark */
+        --brand-secondary: 251 191 36;  /* amber-400 */
+        --bg-primary: 30 15 20;         /* oscuro con tinte cálido */
+        --bg-secondary: 45 25 30;       /* capa elevada cálida */
+        --bg-tertiary: 60 35 40;
+        --surface: 45 25 30;
+        
+        /* TEXTO CLARO EN MODO OSCURO */
+        --text-primary: 243 244 246;      /* gray-100 */
+        --text-secondary: 209 213 219;    /* gray-300 */
+        --text-tertiary: 156 163 175;     /* gray-400 */
+        --border-primary: 75 85 99;       /* gray-600 */
+        --border-secondary: 55 65 81;     /* gray-700 */
+        --interactive-hover: 60 35 40;    /* más brillante */
+        --interactive-active: 75 85 99;   /* gray-600 */
+    }
+
+    html.theme-youth.dark {
+        --brand-primary: 34 211 238;    /* cyan-400 */
+        --brand-secondary: 167 139 250; /* purple-400 */
+        --bg-primary: 15 20 30;         /* oscuro con tinte frío */
+        --bg-secondary: 25 30 45;
+        --bg-tertiary: 35 40 60;
+        --surface: 25 30 45;
+        
+        /* TEXTO CLARO EN MODO OSCURO */
+        --text-primary: 243 244 246;      /* gray-100 */
+        --text-secondary: 209 213 219;    /* gray-300 */
+        --text-tertiary: 156 163 175;     /* gray-400 */
+        --border-primary: 75 85 99;       /* gray-600 */
+        --border-secondary: 55 65 81;     /* gray-700 */
+        --interactive-hover: 35 40 60;    /* más brillante */
+        --interactive-active: 75 85 99;   /* gray-600 */
+    }
+
+    html.theme-adult.dark {
+        --brand-primary: 107 114 128;   /* gray-500 - neutro */
+        --brand-secondary: 156 163 175; /* gray-400 */
+        --bg-primary: 17 24 39;         /* gray-900 estándar */
+        --bg-secondary: 31 41 55;       /* gray-800 */
+        --bg-tertiary: 55 65 81;        /* gray-700 */
+        --surface: 31 41 55;
+        
+        /* TEXTO CLARO EN MODO OSCURO */
+        --text-primary: 243 244 246;      /* gray-100 */
+        --text-secondary: 209 213 219;    /* gray-300 */
+        --text-tertiary: 156 163 175;     /* gray-400 */
+        --border-primary: 55 65 81;       /* gray-700 */
+        --border-secondary: 75 85 99;     /* gray-600 */
+        --interactive-hover: 55 65 81;    /* gray-700 */
+        --interactive-active: 75 85 99;   /* gray-600 */
+    }
+    
+/* Tamaños de fuente por tema (aplicados en ambos modos) */
+html.theme-kids {
+    --base-font-size: 18px;
+}
+
+html.theme-youth {
+    --base-font-size: 16px;
+}
+
+html.theme-adult {
+    --base-font-size: 15px;
+}
+
+/* High-contrast overrides (se aplica como clase .high-contrast en <html>) */
+html.high-contrast:not(.dark) {
+    /* Contraste máximo: Negro sobre blanco */
+    --text-primary: 0 0 0 !important;
+    --text-secondary: 0 0 0 !important;
+    --text-tertiary: 55 65 81 !important;
+    --bg-primary: 255 255 255 !important;
+    --bg-secondary: 255 255 255 !important;
+    --bg-tertiary: 243 244 246 !important;
+    --surface: 255 255 255 !important;
+    --border-primary: 0 0 0 !important;
+    --border-secondary: 55 65 81 !important;
+    --brand-primary: 0 0 0 !important;
+    --brand-secondary: 55 65 81 !important;
+    --interactive-hover: 229 231 235 !important; /* gray-200 */
+}
+
+html.high-contrast.dark {
+    /* Contraste máximo: Blanco sobre negro */
+    --text-primary: 255 255 255 !important;
+    --text-secondary: 255 255 255 !important;
+    --text-tertiary: 209 213 219 !important;
+    --bg-primary: 0 0 0 !important;
+    --bg-secondary: 0 0 0 !important;
+    --bg-tertiary: 31 41 55 !important;
+    --surface: 0 0 0 !important;
+    --border-primary: 255 255 255 !important;
+    --border-secondary: 209 213 219 !important;
+    --brand-primary: 255 255 255 !important;
+    --brand-secondary: 209 213 219 !important;
+    --interactive-hover: 55 65 81 !important; /* gray-700 */
+}
+
+@layer base {
+    /* Smooth transitions */
+    html {
+        @apply bg-[rgb(var(--bg-primary))] text-[rgb(var(--text-primary))];
+        transition: background-color 200ms ease, color 200ms ease;
+        /* Aplicar tamaño base dinámico para accesibilidad (afecta rem en Tailwind) */
+        font-size: var(--base-font-size);
+    }
+}
+
+@layer components {
+    /* ============================================
+       BUTTONS - Sistema de Botones Unificado
+       ============================================ */
+    
+    /* Primary Button */
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+    
+    .btn-primary {
+        @apply btn bg-[rgb(var(--brand-primary))] text-white hover:opacity-90 focus:ring-[rgb(var(--brand-primary))];
+    }
+    
+    .btn-secondary {
+        @apply btn bg-[rgb(var(--bg-tertiary))] text-[rgb(var(--text-primary))] hover:bg-[rgb(var(--interactive-hover))] border border-[rgb(var(--border-primary))];
+    }
+    
+    .btn-ghost {
+        @apply btn bg-transparent text-[rgb(var(--text-secondary))] hover:bg-[rgb(var(--interactive-hover))] hover:text-[rgb(var(--text-primary))];
+    }
+    
+    .btn-danger {
+        @apply btn bg-[rgb(var(--error))] text-white hover:opacity-90 focus:ring-[rgb(var(--error))];
+    }
+    
+    .btn-sm {
+        @apply px-3 py-1.5 text-sm;
+    }
+    
+    .btn-lg {
+        @apply px-6 py-3 text-lg;
+    }
+    
+    /* ============================================
+       INPUTS - Sistema de Inputs Unificado
+       ============================================ */
+    
+    .input {
+        @apply w-full px-3 py-2 bg-[rgb(var(--surface))] text-[rgb(var(--text-primary))] border border-[rgb(var(--border-primary))] rounded-lg transition-all duration-200 placeholder:text-[rgb(var(--text-tertiary))] focus:outline-none focus:ring-2 focus:ring-[rgb(var(--brand-primary))] focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+    
+    .input-error {
+        @apply border-[rgb(var(--error))] focus:ring-[rgb(var(--error))];
+    }
+    
+    .select {
+        @apply input cursor-pointer;
+    }
+    
+    .textarea {
+        @apply input min-h-[80px];
+        resize: vertical;
+    }
+    
+    /* ============================================
+       CARDS - Sistema de Tarjetas
+       ============================================ */
+    
+    .card {
+        @apply bg-[rgb(var(--surface))] border border-[rgb(var(--border-primary))] rounded-lg shadow-sm transition-shadow duration-200 p-6;
+    }
+    
+    .card-hover {
+        @apply card hover:shadow-md hover:border-[rgb(var(--border-secondary))];
+    }
+    
+    .card-elevated {
+        @apply bg-[rgb(var(--surface-elevated))] border border-[rgb(var(--border-primary))] rounded-lg shadow-md p-6;
+    }
+    
+    /* ============================================
+       TABLES - Sistema de Tablas
+       ============================================ */
+    
+    .table-container {
+        @apply card overflow-hidden;
+    }
+    
+    .table {
+        @apply min-w-full divide-y divide-[rgb(var(--border-primary))];
+    }
+    
+    .table-header {
+        @apply bg-[rgb(var(--bg-secondary))];
+    }
+    
+    .table-header-cell {
+        @apply px-6 py-3 text-left text-xs font-medium text-[rgb(var(--text-secondary))] uppercase tracking-wider;
+    }
+    
+    .table-body {
+        @apply bg-[rgb(var(--surface))] divide-y divide-[rgb(var(--border-primary))];
+    }
+    
+    .table-row {
+        @apply hover:bg-[rgb(var(--interactive-hover))] transition-colors duration-150;
+    }
+    
+    .table-cell {
+        @apply px-6 py-4 whitespace-nowrap text-sm text-[rgb(var(--text-primary))];
+    }
+    
+    .table-cell-secondary {
+        @apply px-6 py-4 text-sm text-[rgb(var(--text-secondary))];
+    }
+    
+    /* ============================================
+       BADGES - Sistema de Etiquetas
+       ============================================ */
+    
+    .badge {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    }
+    
+    .badge-success {
+        @apply badge bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400;
+    }
+    
+    .badge-warning {
+        @apply badge bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400;
+    }
+    
+    .badge-error {
+        @apply badge bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400;
+    }
+    
+    .badge-info {
+        @apply badge bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400;
+    }
+    
+    .badge-neutral {
+        @apply badge bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300;
+    }
+    
+    /* Badge adaptados al tema base (rol badges) */
+    .badge-admin {
+        @apply badge;
+        background-color: rgb(var(--brand-primary) / 0.15);
+        color: rgb(var(--brand-primary));
+    }
+    
+    .badge-profesor {
+        @apply badge;
+        background-color: rgb(var(--brand-secondary) / 0.15);
+        color: rgb(var(--brand-secondary));
+    }
+    
+    .badge-alumno {
+        @apply badge bg-[rgb(var(--bg-tertiary))] text-[rgb(var(--text-primary))];
+    }
+    
+    /* ============================================
+       MODALS - Sistema de Modales
+       ============================================ */
+    
+    .modal-overlay {
+        @apply fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4;
+    }
+    
+    .modal {
+        @apply card-elevated max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col;
+    }
+    
+    .modal-header {
+        @apply p-6 border-b border-[rgb(var(--border-primary))];
+    }
+    
+    .modal-body {
+        @apply p-6 overflow-y-auto flex-1;
+    }
+    
+    .modal-footer {
+        @apply p-6 border-t border-[rgb(var(--border-primary))] flex justify-end gap-3;
+    }
+    
+    /* ============================================
+       LAYOUT - Sistema de Layout
+       ============================================ */
+    
+    .page-container {
+        @apply min-h-screen bg-[rgb(var(--bg-primary))] px-4 sm:px-6 lg:px-8 py-6 max-w-7xl mx-auto space-y-6;
+    }
+    
+    .page-header {
+        @apply mb-6 flex items-center justify-between;
+    }
+    
+    .page-title {
+        @apply text-2xl font-bold text-[rgb(var(--text-primary))];
+    }
+    
+    .page-subtitle {
+        @apply text-sm text-[rgb(var(--text-secondary))] mt-1;
+    }
+    
+    .section {
+        @apply mb-8;
+    }
+    
+    .section-title {
+        @apply text-lg font-semibold text-[rgb(var(--text-primary))] mb-4;
+    }
+    
+    /* ============================================
+       FORM - Sistema de Formularios
+       ============================================ */
+    
+    .form-group {
+        @apply mb-4;
+    }
+    
+    .form-label {
+        @apply block text-sm font-medium text-[rgb(var(--text-secondary))] mb-2;
+    }
+    
+    .form-label-required::after {
+        @apply text-[rgb(var(--error))];
+        content: ' *';
+    }
+    
+    .form-error {
+        @apply mt-1 text-sm text-[rgb(var(--error))];
+    }
+    
+    .form-hint {
+        @apply mt-1 text-sm text-[rgb(var(--text-tertiary))];
+    }
+    
+    .form-actions {
+        @apply flex items-center justify-end gap-3 pt-6 border-t border-[rgb(var(--border-primary))];
+    }
+    
+    /* ============================================
+       LINKS - Sistema de Enlaces
+       ============================================ */
+    
+    .link {
+        @apply text-[rgb(var(--brand-primary))] hover:underline transition-all duration-200;
+    }
+    
+    .link-secondary {
+        @apply text-[rgb(var(--text-secondary))] hover:text-[rgb(var(--text-primary))] hover:underline transition-all duration-200;
+    }
+}
+
+@layer utilities {
+    /* Theme-aware text colors */
+    .text-theme-primary {
+        @apply text-[rgb(var(--text-primary))];
+    }
+    
+    .text-theme-secondary {
+        @apply text-[rgb(var(--text-secondary))];
+    }
+    
+    .text-theme-tertiary {
+        @apply text-[rgb(var(--text-tertiary))];
+    }
+    
+    /* Theme-aware backgrounds */
+    .bg-theme-primary {
+        @apply bg-[rgb(var(--bg-primary))];
+    }
+    
+    .bg-theme-secondary {
+        @apply bg-[rgb(var(--bg-secondary))];
+    }
+    
+    .bg-theme-surface {
+        @apply bg-[rgb(var(--surface))];
+    }
+    
+    /* Theme-aware borders */
+    .border-theme {
+        @apply border-[rgb(var(--border-primary))];
+    }
+    
+    /* ============================================
+       LAYOUT COMPONENTS - Sidebar, Topbar, etc.
+       ============================================ */
+    
+    /* Sidebar */
+    .sidebar-bg {
+        @apply bg-[rgb(var(--surface))];
+    }
+    
+    .sidebar-border {
+        @apply border-[rgb(var(--border-primary))];
+    }
+    
+    .sidebar-text {
+        @apply text-[rgb(var(--text-primary))];
+    }
+    
+    .sidebar-item-hover:hover {
+        @apply bg-[rgb(var(--interactive-hover))];
+    }
+    
+    .sidebar-item-active {
+        @apply bg-[rgb(var(--brand-primary)/0.1)] text-[rgb(var(--brand-primary))] border-l-4 border-[rgb(var(--brand-primary))];
+    }
+    
+    /* Topbar */
+    .topbar-bg {
+        @apply bg-[rgb(var(--surface))];
+    }
+    
+    .topbar-border {
+        @apply border-[rgb(var(--border-primary))];
+    }
+    
+    /* Hover states */
+    .hover\:bg-theme-hover:hover {
+        @apply bg-[rgb(var(--interactive-hover))];
+    }
+    
+    .bg-theme-hover {
+        @apply bg-[rgb(var(--interactive-hover))];
+    }
+    
+    /* Text colors */
+    .text-theme-primary {
+        @apply text-[rgb(var(--text-primary))];
+    }
+}

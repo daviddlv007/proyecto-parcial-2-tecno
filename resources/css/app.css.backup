@@ -1,0 +1,386 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   SISTEMA DE TEMAS MODERNO
+   - Tailwind Dark Mode nativo (class-based)
+   - CSS Variables para extensibilidad
+   - 0 cambios necesarios en componentes
+   ============================================ */
+
+@layer base {
+    /* Variables CSS - Tema Claro (default) */
+    :root {
+        /* Primary colors (blue scale) */
+        --color-primary-50: 239 246 255;
+        --color-primary-100: 219 234 254;
+        --color-primary-200: 191 219 254;
+        --color-primary-300: 147 197 253;
+        --color-primary-400: 96 165 250;
+        --color-primary-500: 59 130 246;
+        --color-primary-600: 37 99 235;
+        --color-primary-700: 29 78 216;
+        --color-primary-800: 30 64 175;
+        --color-primary-900: 30 58 138;
+    }
+
+    /* Tema Oscuro - Variables ajustadas */
+    .dark {
+        /* Colores primary más claros en dark mode */
+        --color-primary-50: 30 58 138;
+        --color-primary-100: 30 64 175;
+        --color-primary-200: 29 78 216;
+        --color-primary-300: 37 99 235;
+        --color-primary-400: 59 130 246;
+        --color-primary-500: 96 165 250;
+        --color-primary-600: 147 197 253;
+        --color-primary-700: 191 219 254;
+        --color-primary-800: 219 234 254;
+        --color-primary-900: 239 246 255;
+    }
+
+    /* Transiciones suaves */
+    html {
+        transition-property: background-color, color;
+        transition-duration: 200ms;
+    }
+
+    html.dark {
+        color-scheme: dark;
+    }
+}
+
+@layer components {
+    /* Componentes reutilizables theme-aware */
+    .btn-primary {
+        @apply bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors;
+    }
+
+    .btn-secondary {
+        @apply bg-gray-200 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors;
+    }
+
+    html.dark .btn-secondary {
+        @apply bg-gray-700 text-gray-100 hover:bg-gray-600;
+    }
+
+    .card {
+        @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6;
+    }
+
+    html.dark .card {
+        @apply bg-gray-800 border-gray-700;
+    }
+
+    .table-header {
+        @apply bg-gray-50 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+    }
+
+    html.dark .table-header {
+        @apply bg-gray-700 text-gray-400;
+    }
+
+    /* Unified input/select/textarea baseline that is theme-aware */
+    .input-base {
+        @apply w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900;
+    }
+
+    /* Make inputs/selects/textareas dark-mode friendly */
+    html.dark .input-base {
+        @apply bg-gray-700 border-gray-600 text-gray-100;
+    }
+
+    /* When inputs are disabled use muted background in dark mode */
+    .input-base:disabled {
+        @apply bg-gray-100 text-gray-500 cursor-not-allowed;
+    }
+
+    html.dark .input-base:disabled {
+        @apply bg-gray-600 text-gray-300 cursor-not-allowed;
+    }
+}
+
+@layer utilities {
+    /* Utilidades extras si necesitas */
+    .transition-theme {
+        @apply transition-colors duration-200;
+    }
+}
+
+/* ============================================
+   SISTEMA DE TEMAS - VARIABLES CSS
+   ============================================ */
+
+@layer base {
+    /* TEMA CLARO (por defecto) */
+    :root,
+    html.light {
+        /* Backgrounds */
+        --color-bg-primary: 249 250 251; /* gray-50 */
+        --color-bg-secondary: 255 255 255; /* white */
+        --color-bg-tertiary: 243 244 246; /* gray-100 */
+        --color-bg-hover: 229 231 235; /* gray-200 */
+        
+        /* Textos */
+        --color-text-primary: 17 24 39; /* gray-900 */
+        --color-text-secondary: 75 85 99; /* gray-600 */
+        --color-text-tertiary: 107 114 128; /* gray-500 */
+        --color-text-inverse: 255 255 255; /* white */
+        
+        /* Borders */
+        --color-border-primary: 229 231 235; /* gray-200 */
+        --color-border-secondary: 209 213 219; /* gray-300 */
+        --color-border-focus: 59 130 246; /* blue-500 */
+        
+        /* Sidebar */
+        --color-sidebar-bg: 255 255 255; /* white */
+        --color-sidebar-item-hover: 243 244 246; /* gray-100 */
+        --color-sidebar-item-active: 239 246 255; /* blue-50 */
+        --color-sidebar-text: 55 65 81; /* gray-700 */
+        --color-sidebar-border: 229 231 235; /* gray-200 */
+        
+        /* Topbar */
+        --color-topbar-bg: 255 255 255; /* white */
+        --color-topbar-border: 229 231 235; /* gray-200 */
+        
+        /* Cards */
+        --color-card-bg: 255 255 255; /* white */
+        --color-card-border: 229 231 235; /* gray-200 */
+        --color-card-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+        
+        /* Inputs */
+        --color-input-bg: 255 255 255; /* white */
+        --color-input-border: 209 213 219; /* gray-300 */
+        --color-input-focus: 59 130 246; /* blue-500 */
+        --color-input-disabled: 243 244 246; /* gray-100 */
+        
+        /* Buttons */
+        --color-btn-primary-bg: 37 99 235; /* blue-600 */
+        --color-btn-primary-hover: 29 78 216; /* blue-700 */
+        --color-btn-secondary-bg: 243 244 246; /* gray-100 */
+        --color-btn-secondary-hover: 229 231 235; /* gray-200 */
+        
+        /* Tables */
+        --color-table-header: 249 250 251; /* gray-50 */
+        --color-table-row-hover: 249 250 251; /* gray-50 */
+        --color-table-border: 229 231 235; /* gray-200 */
+        
+        /* Modals */
+        --color-modal-overlay: 0 0 0 / 0.5;
+        --color-modal-bg: 255 255 255; /* white */
+        
+        /* Footer */
+        --color-footer-bg: 255 255 255; /* white */
+        --color-footer-border: 229 231 235; /* gray-200 */
+    }
+
+    /* TEMA OSCURO */
+    html.dark {
+        /* Backgrounds */
+        --color-bg-primary: 17 24 39; /* gray-900 */
+        --color-bg-secondary: 31 41 55; /* gray-800 */
+        --color-bg-tertiary: 55 65 81; /* gray-700 */
+        --color-bg-hover: 75 85 99; /* gray-600 */
+        
+        /* Textos */
+        --color-text-primary: 243 244 246; /* gray-100 */
+        --color-text-secondary: 209 213 219; /* gray-300 */
+        --color-text-tertiary: 156 163 175; /* gray-400 */
+        --color-text-inverse: 17 24 39; /* gray-900 */
+        
+        /* Borders */
+        --color-border-primary: 55 65 81; /* gray-700 */
+        --color-border-secondary: 75 85 99; /* gray-600 */
+        --color-border-focus: 96 165 250; /* blue-400 */
+        
+        /* Sidebar */
+        --color-sidebar-bg: 31 41 55; /* gray-800 */
+        --color-sidebar-item-hover: 55 65 81; /* gray-700 */
+        --color-sidebar-item-active: 30 58 138; /* blue-900 */
+        --color-sidebar-text: 229 231 235; /* gray-200 */
+        --color-sidebar-border: 55 65 81; /* gray-700 */
+        
+        /* Topbar */
+        --color-topbar-bg: 31 41 55; /* gray-800 */
+        --color-topbar-border: 55 65 81; /* gray-700 */
+        
+        /* Cards */
+        --color-card-bg: 31 41 55; /* gray-800 */
+        --color-card-border: 55 65 81; /* gray-700 */
+        --color-card-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.5);
+        
+        /* Inputs */
+        --color-input-bg: 55 65 81; /* gray-700 */
+        --color-input-border: 75 85 99; /* gray-600 */
+        --color-input-focus: 96 165 250; /* blue-400 */
+        --color-input-disabled: 31 41 55; /* gray-800 */
+        
+        /* Buttons */
+        --color-btn-primary-bg: 37 99 235; /* blue-600 */
+        --color-btn-primary-hover: 59 130 246; /* blue-500 */
+        --color-btn-secondary-bg: 55 65 81; /* gray-700 */
+        --color-btn-secondary-hover: 75 85 99; /* gray-600 */
+        
+        /* Tables */
+        --color-table-header: 55 65 81; /* gray-700 */
+        --color-table-row-hover: 55 65 81; /* gray-700 */
+        --color-table-border: 75 85 99; /* gray-600 */
+        
+        /* Modals */
+        --color-modal-overlay: 0 0 0 / 0.7;
+        --color-modal-bg: 31 41 55; /* gray-800 */
+        
+        /* Footer */
+        --color-footer-bg: 31 41 55; /* gray-800 */
+        --color-footer-border: 55 65 81; /* gray-700 */
+    }
+
+    /* Aplicar variables globalmente */
+    * {
+        @apply transition-colors duration-200;
+    }
+
+    body {
+        @apply bg-theme-primary text-theme-primary;
+    }
+}
+
+/* ============================================
+   CLASES UTILITY PERSONALIZADAS
+   ============================================ */
+
+@layer utilities {
+    /* Backgrounds */
+    .bg-theme-primary {
+        background-color: rgb(var(--color-bg-primary));
+    }
+    .bg-theme-secondary {
+        background-color: rgb(var(--color-bg-secondary));
+    }
+    .bg-theme-tertiary {
+        background-color: rgb(var(--color-bg-tertiary));
+    }
+    .bg-theme-hover {
+        background-color: rgb(var(--color-bg-hover));
+    }
+    
+    /* Textos */
+    .text-theme-primary {
+        color: rgb(var(--color-text-primary));
+    }
+    .text-theme-secondary {
+        color: rgb(var(--color-text-secondary));
+    }
+    .text-theme-tertiary {
+        color: rgb(var(--color-text-tertiary));
+    }
+    .text-theme-inverse {
+        color: rgb(var(--color-text-inverse));
+    }
+    
+    /* Borders */
+    .border-theme-primary {
+        border-color: rgb(var(--color-border-primary));
+    }
+    .border-theme-secondary {
+        border-color: rgb(var(--color-border-secondary));
+    }
+    .focus\:border-theme-focus:focus {
+        border-color: rgb(var(--color-border-focus));
+    }
+    
+    /* Sidebar */
+    .sidebar-bg {
+        background-color: rgb(var(--color-sidebar-bg));
+    }
+    .sidebar-item-hover:hover {
+        background-color: rgb(var(--color-sidebar-item-hover));
+    }
+    .sidebar-item-active {
+        background-color: rgb(var(--color-sidebar-item-active));
+    }
+    .sidebar-text {
+        color: rgb(var(--color-sidebar-text));
+    }
+    .sidebar-border {
+        border-color: rgb(var(--color-sidebar-border));
+    }
+    
+    /* Topbar */
+    .topbar-bg {
+        background-color: rgb(var(--color-topbar-bg));
+    }
+    .topbar-border {
+        border-color: rgb(var(--color-topbar-border));
+    }
+    
+    /* Cards */
+    .card-bg {
+        background-color: rgb(var(--color-card-bg));
+    }
+    .card-border {
+        border-color: rgb(var(--color-card-border));
+    }
+    .card-shadow {
+        box-shadow: var(--color-card-shadow);
+    }
+    
+    /* Inputs */
+    .input-bg {
+        background-color: rgb(var(--color-input-bg));
+    }
+    .input-border {
+        border-color: rgb(var(--color-input-border));
+    }
+    .input-focus:focus {
+        border-color: rgb(var(--color-input-focus));
+        outline: none;
+        ring: 2px;
+        ring-color: rgb(var(--color-input-focus) / 0.2);
+    }
+    
+    /* Buttons */
+    .btn-primary {
+        background-color: rgb(var(--color-btn-primary-bg));
+        color: rgb(var(--color-text-inverse));
+    }
+    .btn-primary:hover {
+        background-color: rgb(var(--color-btn-primary-hover));
+    }
+    .btn-secondary {
+        background-color: rgb(var(--color-btn-secondary-bg));
+        color: rgb(var(--color-text-primary));
+    }
+    .btn-secondary:hover {
+        background-color: rgb(var(--color-btn-secondary-hover));
+    }
+    
+    /* Tables */
+    .table-header {
+        background-color: rgb(var(--color-table-header));
+    }
+    .table-row-hover:hover {
+        background-color: rgb(var(--color-table-row-hover));
+    }
+    .table-border {
+        border-color: rgb(var(--color-table-border));
+    }
+    
+    /* Modals */
+    .modal-overlay {
+        background-color: rgb(var(--color-modal-overlay));
+    }
+    .modal-bg {
+        background-color: rgb(var(--color-modal-bg));
+    }
+    
+    /* Footer */
+    .footer-bg {
+        background-color: rgb(var(--color-footer-bg));
+    }
+    .footer-border {
+        border-color: rgb(var(--color-footer-border));
+    }
+}
+
