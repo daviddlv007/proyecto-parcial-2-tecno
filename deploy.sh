@@ -59,14 +59,19 @@ echo -e "${GREEN}✓ Composer install completado${NC}"
 # PASO 3: Instalar dependencias Node
 # ============================================================================
 echo -e "${YELLOW}[PASO 3] Instalando dependencias Node...${NC}"
-npm install --prefix "$RUTA_PROYECTO"
+cd "$RUTA_PROYECTO"
+# Limpiar node_modules y package-lock.json para asegurar versiones correctas
+rm -rf node_modules package-lock.json
+# Instalar dependencias
+npm install || npm install --legacy-peer-deps
 echo -e "${GREEN}✓ npm install completado${NC}"
 
 # ============================================================================
 # PASO 4: Build frontend
 # ============================================================================
 echo -e "${YELLOW}[PASO 4] Compilando frontend (Vite)...${NC}"
-npm run build --prefix "$RUTA_PROYECTO"
+cd "$RUTA_PROYECTO"
+npm run build
 echo -e "${GREEN}✓ Build completado${NC}"
 
 # ============================================================================
