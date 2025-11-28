@@ -52,21 +52,21 @@ echo -e "${GREEN}✓ .env validado${NC}"
 # ============================================================================
 echo -e "${YELLOW}[PASO 2] Instalando dependencias PHP...${NC}"
 cd "$RUTA_PROYECTO"
-composer install --optimize-autoloader --no-dev --no-interaction --quiet
+composer install --optimize-autoloader --no-dev --no-interaction
 echo -e "${GREEN}✓ Composer install completado${NC}"
 
 # ============================================================================
 # PASO 3: Instalar dependencias Node
 # ============================================================================
 echo -e "${YELLOW}[PASO 3] Instalando dependencias Node...${NC}"
-npm install --prefix "$RUTA_PROYECTO" --silent
+npm install --prefix "$RUTA_PROYECTO"
 echo -e "${GREEN}✓ npm install completado${NC}"
 
 # ============================================================================
 # PASO 4: Build frontend
 # ============================================================================
 echo -e "${YELLOW}[PASO 4] Compilando frontend (Vite)...${NC}"
-npm run build --prefix "$RUTA_PROYECTO" --silent
+npm run build --prefix "$RUTA_PROYECTO"
 echo -e "${GREEN}✓ Build completado${NC}"
 
 # ============================================================================
@@ -75,7 +75,7 @@ echo -e "${GREEN}✓ Build completado${NC}"
 if ! grep -q "APP_KEY=base64:" "$RUTA_PROYECTO/.env"; then
     echo -e "${YELLOW}[PASO 5] Generando APP_KEY...${NC}"
     cd "$RUTA_PROYECTO"
-    php artisan key:generate --force --quiet
+    php artisan key:generate --force
     echo -e "${GREEN}✓ APP_KEY generada${NC}"
 else
     echo -e "${YELLOW}[PASO 5] APP_KEY ya existe${NC}"
@@ -86,7 +86,7 @@ fi
 # ============================================================================
 echo -e "${YELLOW}[PASO 6] Ejecutando migraciones...${NC}"
 cd "$RUTA_PROYECTO"
-php artisan migrate --force --quiet
+php artisan migrate --force
 echo -e "${GREEN}✓ Migraciones completadas${NC}"
 
 # ============================================================================
@@ -94,8 +94,8 @@ echo -e "${GREEN}✓ Migraciones completadas${NC}"
 # ============================================================================
 echo -e "${YELLOW}[PASO 7] Poblando base de datos...${NC}"
 cd "$RUTA_PROYECTO"
-php artisan db:seed --class=DatabaseSeeder --force --quiet
-php artisan db:seed --class=DemoDataSeeder --force --quiet
+php artisan db:seed --class=DatabaseSeeder --force
+php artisan db:seed --class=DemoDataSeeder --force
 echo -e "${GREEN}✓ Seeders completados${NC}"
 
 # ============================================================================
@@ -103,9 +103,9 @@ echo -e "${GREEN}✓ Seeders completados${NC}"
 # ============================================================================
 echo -e "${YELLOW}[PASO 8] Optimizando aplicación...${NC}"
 cd "$RUTA_PROYECTO"
-php artisan config:cache --quiet
-php artisan route:cache --quiet
-php artisan view:cache --quiet
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
 echo -e "${GREEN}✓ Caché optimizado${NC}"
 
 # ============================================================================
