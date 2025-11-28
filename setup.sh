@@ -63,7 +63,7 @@ LOG_DEPRECATIONS_CHANNEL=null
 LOG_LEVEL=error
 
 DB_CONNECTION=pgsql
-DB_HOST=localhost
+DB_HOST=mail.tecnoweb.org.bo
 DB_PORT=5432
 DB_DATABASE=db_grupo17sa
 DB_USERNAME=grupo17sa
