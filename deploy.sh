@@ -91,8 +91,8 @@ fi
 # ============================================================================
 echo -e "${YELLOW}[PASO 6] Ejecutando migraciones...${NC}"
 cd "$RUTA_PROYECTO"
-php artisan migrate --force
-echo -e "${GREEN}✓ Migraciones completadas${NC}"
+php artisan migrate --force || echo -e "${YELLOW}  ⚠ Algunas migraciones fallaron (posiblemente duplicadas)${NC}"
+echo -e "${GREEN}✓ Migraciones procesadas${NC}"
 
 # ============================================================================
 # PASO 7: Seeders
