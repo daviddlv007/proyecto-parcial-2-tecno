@@ -1,80 +1,81 @@
 # Despliegue - Escuela de Conducción
 
-## Resumen rápido
+## 🚀 UN SOLO COMANDO
 
-**Ubicación en servidor:** `/home/grupo17sa/proyecto2/escuela-conduccion/public`
-
-**URL pública:** `http://mail.tecnoweb.org.bo/inf513/grupo17sa/proyecto2/escuela-conduccion/public`
-
----
-
-## Pasos de despliegue
-
-### 1. Clonar proyecto
+Desde `/home/grupo17sa/proyecto2` ejecuta:
 
 ```bash
-cd /home/grupo17sa/proyecto2
-git clone https://github.com/daviddlv007/proyecto-parcial-2-tecno.git escuela-conduccion
-cd escuela-conduccion
+bash setup.sh
 ```
 
-### 2. Crear .env
-
-```bash
-cp .env.production .env
-nano .env
-```
-
-**Editar solo:** `DB_PASSWORD` (contraseña PostgreSQL proporcionada por admin)
-
-### 3. Ejecutar deploy
-
-```bash
-cd /home/grupo17sa/proyecto2
-bash escuela-conduccion/deploy.sh
-```
-
-El script hace todo automáticamente:
-- Instala dependencias (composer + npm)
-- Build frontend (Vite)
-- Genera APP_KEY
-- Ejecuta migraciones
-- Popula BD (usuarios + datos de prueba)
-- Optimiza caché
+**Eso es todo.**
 
 ---
 
-## Usuarios de prueba
+## ¿Qué hace `setup.sh`?
 
+1. **Clone o Pull** del repositorio
+   - Si no existe: clona desde GitHub
+   - Si existe: actualiza con `git pull`
+
+2. **Crear `.env`**
+   - Copia `.env.production` → `.env`
+   - Valida que `DB_PASSWORD` esté configurado
+   - Si no lo está: pide que lo edites y luego ejecutes nuevamente
+
+3. **Ejecutar `deploy.sh`**
+   - Instala composer + npm
+   - Build Vite
+   - Migraciones + seeders
+   - Caché optimizado
+
+---
+
+## Acceso
+
+**URL:** `http://mail.tecnoweb.org.bo/inf513/grupo17sa/proyecto2/escuela-conduccion/public`
+
+**Admin panel:** `/admin`
+
+**Usuarios de prueba:**
 ```
-admin@escuela.com          / password
-profesor@escuela.com       / password
-alumno@escuela.com         / password
+admin@escuela.com        / password
+profesor@escuela.com     / password
+alumno@escuela.com       / password
 ```
 
 ---
 
-## Panel de control
+## Base de datos
 
-**Admin:** `http://mail.tecnoweb.org.bo/inf513/grupo17sa/proyecto2/escuela-conduccion/public/admin`
+- 3 cursos
+- 5 ediciones
+- 15 horarios
+- 2 inscripciones
+- 4 pagos de prueba
 
-**Control BD:** `/admin/database` (Limpiar / Poblar / Reset)
+Control desde: `/admin/database` (botones: Limpiar / Poblar / Reset)
 
 ---
 
-## Si algo falla
+## Troubleshooting
 
 ```bash
 # Ver logs
-tail -f /home/grupo17sa/proyecto2/escuela-conduccion/storage/logs/laravel.log
+tail -f escuela-conduccion/storage/logs/laravel.log
 
-# Reiniciar BD
+# Reset completo de BD
+cd escuela-conduccion
 php artisan migrate:fresh --seed
+
+# Ejecutar setup nuevamente
+cd /home/grupo17sa/proyecto2
+bash setup.sh
 ```
 
 ---
 
-## Entrega final
+## Entrega
 
 ```bash
 cd /home/grupo17sa/proyecto2
